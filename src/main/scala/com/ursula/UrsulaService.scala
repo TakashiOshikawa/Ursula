@@ -39,7 +39,7 @@ trait MainService extends HttpService with Actor {
     path(Segment) { log_path =>
       get {
         respondWithMediaType(`text/html`) {
-          respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
+          respondWithHeader(RawHeader("Access-Control-Allow-Origin", "localhost:8080")) {
             complete {
               <html>
                 <body>
