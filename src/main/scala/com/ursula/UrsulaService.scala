@@ -2,6 +2,7 @@ package com.ursula
 
 import akka.actor.Actor
 import com.redisconnect.RedisConnect
+import spray.http.HttpHeaders.RawHeader
 import spray.http.MediaTypes._
 import spray.routing._
 
@@ -22,13 +23,15 @@ trait MainService extends HttpService with Actor {
     path("special-keys") {
       get {
         respondWithMediaType(`text/html`) {
-          complete {
-            <html>
-              <body>
-                <p>Welcome to Ursulla.</p>
-                <h4>{RedisConnect.getKeysString}</h4>
-              </body>
-            </html>
+          respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
+            complete {
+              <html>
+                <body>
+                  <p>Welcome to Ursulla.</p>
+                  <h4>{RedisConnect.getKeysString}</h4>
+                </body>
+              </html>
+            }
           }
         }
       }
@@ -36,12 +39,14 @@ trait MainService extends HttpService with Actor {
     path(Segment) { log_path =>
       get {
         respondWithMediaType(`text/html`) {
-          complete {
-            <html>
-              <body>
-                <h3>{RedisConnect.get(log_path)}</h3>
-              </body>
-            </html>
+          respondWithHeader(RawHeader("Access-Control-Allow-Origin", "*")) {
+            complete {
+              <html>
+                <body>
+                  <h3>{RedisConnect.get(log_path)}</h3>
+                </body>
+              </html>
+            }
           }
         }
       } ~
