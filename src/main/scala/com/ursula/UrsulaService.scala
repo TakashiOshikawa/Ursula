@@ -64,7 +64,3 @@ trait MainService extends HttpService with Actor {
 
 
 
-object Redis {
-  case class GetValue(key: String)
-  case class SetValue(key: String, value: String)
-}
