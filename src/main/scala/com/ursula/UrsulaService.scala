@@ -53,10 +53,16 @@ trait MainService extends HttpService with Actor {
       formFields('log_msg ? "") { log_msg =>
         validate(log_msg.nonEmpty, s"Invalid Request") {
           post {
-            RedisConnect.setex(log_path, 20, log_msg)
+            RedisConnect.setex(log_path, 1800, log_msg)
             complete("OK")
           }
         }
+      }
+    } ~
+    path(Segment / "clear" ) { log_path =>
+      post {
+        RedisConnect.delete(log_path)
+        complete("OK")
       }
     }
 

@@ -18,6 +18,7 @@ object RedisConnect {
   def set(key: String, value: String): Boolean = red.set(key,value)
   def setex(key: String, time: Int, value: String): Boolean = red.setex(key, time, value)
   def get(key: String): String = red.get(key).getOrElse("")
+  def delete(key: String): Option[Long] = red.del(key)
   def keys = red.keys()
 
   def getKeysString: String = {
