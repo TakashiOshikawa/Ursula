@@ -10,7 +10,6 @@ object RedisClientSingleton {
   def getInstance(): RedisClient = red
 }
 
-
 object RedisConnect {
 
   val red = RedisClientSingleton.getInstance
